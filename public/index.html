@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todomvc" data-framework="firebase">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Home</title>
+    <link href="css/angular-material.css" rel="stylesheet" />
+    <link href="css/angular-material-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+    <!--<link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">-->
+    <style>
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <!-- Firebase -->
+    <script src="script/es6-promise.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+    <script src="script/base.js"></script>
+
+    <!-- AngularJS -->
+    <script src="script/angular.js"></script>
+    <!--<script src="script/angular-route.js"></script>-->
+    <script src="script/angular-ui-router.js"></script>
+    <script src="script/angular-animate.js"></script>
+    <script src="script/angular-aria.js"></script>
+    <script src="script/angular-material.js"></script>
+    <script src="script/angular-material-icons.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.js"></script>
+</head>
+
+<body layout="column" ng-cloak>
+    <!-- Container #2 -->
+    <section flex layout="row">
+
+        <!-- Container #3 -->
+        <div layout="vertical">
+            <nav></nav>
+        </div>
+        <div layout="column" flex>
+            <div ng-include="'view/toolbar-header.html'"></div>
+            <md-content flex id="content">
+                <section ui-view>loading...</section>
+            </md-content>
+        </div>
+    </section>
+    <script src="app/models.js"></script>
+    <script src="app/util.js"></script>
+    <script src="app/boot.js"></script>
+    <script src="app/userPrefs/compUserPrefs.js"></script>
+    <script src="app/nav/nav.js"></script>
+    <script src="app/nav/router.js"></script>
+    <script src="app/ProductService.js"></script>
+    <script src="app/services/constService.js"></script>
+    <script src="app/services/refService.js"></script>
+    <script src="app/auth/compLogin.js"></script>
+    <script src="app/auth/compLogout.js"></script>
+    <script src="app/compFavorites.js"></script>
+    <script src="app/compHome.js"></script>
+    <script src="app/compProducts.js"></script>
+    <script src="app/compShoppingList.js"></script>
+    <script src="app/compReceipts.js"></script>
+    <script src="app/compTodo.js"></script>
+    <script src="app/productService.js"></script>
+    <script src="app/ReceiptService.js"></script>
+    <script src="app/todoCtrl.js"></script>
+    <script src="app/todoFocus.js"></script>
+    <script src="app/todoBlur.js"></script>
+    <script src="app/todoEscape.js"></script>
+    <script src="app/app.js"></script>
+</body>
+
+</html>

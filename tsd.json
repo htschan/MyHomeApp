@@ -1,0 +1,30 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "angular-material/angular-material.d.ts": {
+      "commit": "6e55288b1bce1abdb1696cdecf324467a6bcf1aa"
+    },
+    "angularjs/angular.d.ts": {
+      "commit": "33585c55fbb7cd3cfc59d18a3b87f4ae6012eaff"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "33585c55fbb7cd3cfc59d18a3b87f4ae6012eaff"
+    },
+    "firebase/firebase.d.ts": {
+      "commit": "6e55288b1bce1abdb1696cdecf324467a6bcf1aa"
+    },
+    "angularfire/angularfire.d.ts": {
+      "commit": "6e55288b1bce1abdb1696cdecf324467a6bcf1aa"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "6e55288b1bce1abdb1696cdecf324467a6bcf1aa"
+    },
+    "angular-ui-router/angular-ui-router.d.ts": {
+      "commit": "33585c55fbb7cd3cfc59d18a3b87f4ae6012eaff"
+    }
+  }
+}
