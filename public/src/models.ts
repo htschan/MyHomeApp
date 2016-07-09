@@ -23,4 +23,12 @@ module MyHomeApp {
         constructor(public title: string, public completed: boolean) {
         }
     }
+
+    export class User {
+        constructor(public id: string,
+            public provider: string,
+            public email?: string,
+            public imageUrl?: string
+        ) { }
+    }
 }

@@ -61,17 +61,18 @@ module MyHomeApp {
         }
     })
     class ProductsComponent {
-
         static $inject: Array<string> = ['$firebaseObject', 'refService', '$firebaseArray'];
-        newTodo = '';
-        editedTodo = null;
+
+        newTodoTitle: string = '';
+        originalTodo: TodoItem;
+        editedTodo: TodoItem = null;
         selected: Receipt = null;
         todos: AngularFireArray;
 
-        totalCount;
-        remainingCount;
-        completedCount;
-        allChecked = false;
+        totalCount: number;
+        remainingCount: number;
+        completedCount: number;
+        allChecked: boolean = false;
 
         constructor(private $firebaseObjectService: AngularFireObjectService,
             private refService: IRefService,
@@ -104,18 +105,18 @@ module MyHomeApp {
         }
 
         addTodo() {
-            var newTodo = this.newTodo.trim();
-            if (!newTodo.length) {
+            let newTodoTitle = this.newTodoTitle.trim();
+            if (!newTodoTitle.length) {
                 return;
             }
             this.todos.$add({
-                title: newTodo,
+                title: newTodoTitle,
                 completed: false
             });
-            this.newTodo = '';
+            this.newTodoTitle = '';
         };
 
-        editTodo(todo) {
+        editTodo(todo: TodoItem) {
             this.editedTodo = todo;
             this.originalTodo = angular.extend({}, this.editedTodo);
         };

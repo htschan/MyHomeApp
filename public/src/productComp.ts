@@ -9,11 +9,10 @@ module MyHomeApp {
     })
     class ProductComponent {
 
-        static $inject: Array<string> = ['$firebaseObject', 'fbRef', '$location'];
+        static $inject: Array<string> = ['$firebaseObject', 'fbRef'];
 
         constructor(private $firebaseObjectService: AngularFireObjectService,
-            private fbRef: any,
-            private locationService: angular.ILocationService) {
+            private fbRef: any) {
             var self = this;
         }
 

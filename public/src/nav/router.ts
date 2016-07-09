@@ -9,11 +9,14 @@ module MyHomeApp {
                   .state('home', {
                         url: "/home", template: "<comp-home current-auth='$resolve.currentAuth'></comp-home>", resolve: {
                               currentAuth: function (refService: IRefService) {
-                                    return refService.getAuth().$requireAuth();
+                                    return refService.getAuth().$requireAuth().then(function(){
+                                          return refService.getAuth();
+                                    });
                               }
                         }
                   })
                   .state('login', { url: "/login", template: "<comp-login current-auth='$resolve.currentAuth'></comp-login>" })
+                  .state('register', { url: "/register", template: "<comp-register></comp-register>" })
                   .state('logout', { url: "/logout", template: "<comp-logout></comp-logout>" })
                   .state('shoppinglist', {
                         url: "/shoppinglist", template: "<comp-shopping-list></comp-shopping-list>", resolve: {
