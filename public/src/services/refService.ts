@@ -2,6 +2,8 @@
 
 module MyHomeApp {
     export interface IRefService {
+        getRootRef(): Firebase;
+        getFirebaseUrl(): string;
         getPreferenceRef(): Firebase;
         getShoppingListRef(): Firebase;
         getReceiptsRef(): Firebase;
@@ -13,13 +15,20 @@ module MyHomeApp {
     }
 
     export class RefService implements IRefService {
-        static $inject = ['constService', '$firebaseAuth'];
+        static $inject = ['$firebaseAuth'];
 
         rootRef: Firebase;
 
-        constructor(private constService: IConstService,
-            private authService: AngularFireAuthService) {
-            this.rootRef = constService.getRootRef();
+        constructor(private authService: AngularFireAuthService) {
+            this.rootRef = this.getRootRef();
+        }
+
+        getRootRef(): Firebase {
+            return new Firebase(this.getFirebaseUrl());
+        }
+
+        getFirebaseUrl(): string {
+            return 'https://shining-inferno-test1.firebaseio.com/MyHome';
         }
 
         getPreferenceRef(): Firebase {

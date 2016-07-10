@@ -7,7 +7,9 @@ module MyHomeApp {
         .config(($mdIconProvider: angular.material.IIconProvider,
             $mdThemingProvider: angular.material.IThemingProvider) => {
             $mdIconProvider
-                .icon('menu', 'img/icons/menu.svg', 24);
+                .icon('menu', 'img/icons/menu.svg', 24)
+                .icon('email', 'img/icons/menu.svg', 24)
+                ;
 
             $mdThemingProvider.theme('default')
                 .primaryPalette('blue')

@@ -32,25 +32,23 @@ module MyHomeApp {
         `
     })
     class LoginRegister {
-        static $inject: Array<string> = ['$firebaseAuth', '$state', 'constService'];
+        static $inject: Array<string> = ['$state', 'userService'];
 
-        auth: AngularFireAuth;
         loggedIn: boolean;
         errorMessage: string;
         email: string;
         password: string;
 
-        constructor(private authService: AngularFireAuthService,
+        constructor(
             private stateService: angular.ui.IStateService,
-            private constService: IConstService) {
-            this.auth = authService(constService.getRootRef());
+            private userService: IUserService) {
         }
 
         register() {
             let self = this;
-            this.auth.$createUser({ 'email': this.email, 'password': this.password }).then(function (result) {
+            this.userService.registerEmailUser(this.email, this.password).then((result) => {
                 self.stateService.go('home');
-            }).catch(function(err){
+            }).catch(function (err) {
                 self.errorMessage = err.code || err.message;
             });
         }

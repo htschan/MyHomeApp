@@ -28,6 +28,8 @@ module MyHomeApp {
         constructor(public id: string,
             public provider: string,
             public email?: string,
+            public name?: string,
+            public firstName?: string,
             public imageUrl?: string
         ) { }
     }

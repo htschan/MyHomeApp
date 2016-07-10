@@ -9,7 +9,7 @@ module MyHomeApp {
                   .state('home', {
                         url: "/home", template: "<comp-home current-auth='$resolve.currentAuth'></comp-home>", resolve: {
                               currentAuth: function (refService: IRefService) {
-                                    return refService.getAuth().$requireAuth().then(function(){
+                                    return refService.getAuth().$requireAuth().then(function () {
                                           return refService.getAuth();
                                     });
                               }
@@ -46,10 +46,19 @@ module MyHomeApp {
                               }
                         }
                   })
-                 .state('userprefs', {
+                  .state('userprefs', {
                         url: "/userprefs", template: "<edit-user-prefs auth='$resolve.auth'></edit-user-prefs>", resolve: {
                               auth: function (refService: IRefService) {
                                     return refService.getAuth().$requireAuth();
+                              }
+                        }
+                  })
+                  .state('userprofile', {
+                        url: "/userprofile", template: "<comp-user-profile current-auth='$resolve.auth'></comp-user-profile>", resolve: {
+                              auth: function (refService: IRefService) {
+                                    return refService.getAuth().$requireAuth().then(function () {
+                                          return refService.getAuth();
+                                    });
                               }
                         }
                   })                  // .state('products', {

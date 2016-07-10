@@ -39,10 +39,9 @@ module MyHomeApp {
         }
     })
     class LoginComponent {
-        static $inject: Array<string> = ['$firebaseAuth', '$state', 'constService', 'userService'];
+        static $inject: Array<string> = ['$firebaseAuth', '$state', 'userService'];
 
         currentAuth: AngularFireAuth;
-        auth: AngularFireAuth;
         loggedIn: boolean;
         errorMessage: string;
         email: string;
@@ -50,39 +49,26 @@ module MyHomeApp {
 
         constructor(private authService: AngularFireAuthService,
             private stateService: angular.ui.IStateService,
-            private constService: IConstService,
             private userService: IUserService) {
             this.loggedIn = !!this.currentAuth;
-            this.auth = authService(constService.getRootRef());
-        }
-
-        anonLogin() {
-            var self = this;
-            this.auth.$authAnonymously().then((result) => {
-                self.stateService.go('home');
-            }).catch(((err) => {
-                self.errorMessage = err.code || err.message;
-            }).bind(this))
         }
 
         emailLogin() {
             var self = this;
-            this.auth.$authWithPassword({ 'email': this.email, 'password': this.password }).then((auth: FirebaseAuthData) => {
-                self.userService.loginUser(<User>{ 'id': auth.password.email, 'provider': auth.provider, 'email': auth.password.email, 'imageUrl': auth.password.profileImageURL });
+            this.userService.loginEmailUser(this.email, this.password).then((user: User) => {
                 self.stateService.go('home');
-            }).catch(((err) => {
-                self.errorMessage = err.code || err.message;
-            }).bind(this))
+            }).catch((err) => {
+                self.errorMessage = err;
+            });
         }
 
         fbLogin() {
             var self = this;
-            this.auth.$authWithOAuthPopup("facebook").then((auth: FirebaseAuthData) => {
-                self.userService.loginUser(<User>{ 'id': auth.facebook.id, 'provider': auth.provider, 'imageUrl': auth.facebook.profileImageURL });
+            this.userService.loginFacebookUser().then((user: User)=>{
                 self.stateService.go('home');
-            }).catch(((err) => {
-                self.errorMessage = err.code || err.message;
-            }).bind(this))
+            }).catch((err)=>{
+                self.errorMessage = err;
+            })
         }
 
         register() {

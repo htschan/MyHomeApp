@@ -16,6 +16,7 @@
             <md-button layout-align="left" ng-click="ct.go('products')"md-ink-ripple="#bbb">Alle Produkte</md-button>
             <md-button layout-align="left" ng-click="ct.go('todos')"md-ink-ripple="#bbb">To Do's</md-button>
             <md-button layout-align="left" ng-click="ct.go('userprefs')">Preferences</md-button>
+            <md-button layout-align="left" ng-click="ct.go('userprofile')">Profile</md-button>
             <md-button layout-align="left" ng-click="ct.go('logout')">Logout</md-button>
         </md-content>
     </md-sidenav>

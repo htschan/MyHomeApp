@@ -4,14 +4,14 @@ module MyHomeApp {
         controllerAs: 'ct',
     })
     class LogoutComponent {
-        static $inject: Array<string> = ['$firebaseAuth', '$state', 'constService'];
+        static $inject: Array<string> = ['$firebaseAuth', '$state', 'refService'];
 
         auth: AngularFireAuth;
 
         constructor(private authService: AngularFireAuthService,
             private stateService: angular.ui.IStateService,
-            private constService: IConstService) {
-            this.auth = authService(constService.getRootRef());
+            private refService: IRefService) {
+            this.auth = authService(refService.getRootRef());
         }
 
         $onInit(){
