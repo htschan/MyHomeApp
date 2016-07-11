@@ -1,10 +1,10 @@
 /// <reference path="../_all.ts" />
-@Component(angular.module("todomvc"), 'nav', {
+@Component(angular.module("todomvc"), 'compNav', {
     controllerAs: 'ct',
     template: `
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
         <md-toolbar class="md-toolbar-tools">
-            <md-button hide-gt-sm ng-click="vm.toggleSideNav()" class="md-icon-button">
+            <md-button hide-gt-sm ng-click="ct.toggleSideNav()" class="md-icon-button">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
         </md-toolbar>
@@ -22,19 +22,19 @@
     </md-sidenav>
     `
 })
-class Nav {
+class NavComponent {
     static $inject: Array<string> = ['$mdSidenav', '$state'];
 
     constructor(
         private $mdSidenav: angular.material.ISidenavService,
-         private stateService: angular.ui.IStateService) {
+        private stateService: angular.ui.IStateService) {
     }
 
-    toggleSideNav(): void {
+    toggleSideNav() {
         this.$mdSidenav('left').toggle();
         console.log("toggle SideNav")
     }
-    
+
     go(newLocation): void {
         this.stateService.go(newLocation);
     }

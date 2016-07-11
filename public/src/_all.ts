@@ -25,5 +25,6 @@
 /// <reference path="util.ts" />
 /// <reference path="userPrefs/compUserPrefs.ts" />
 /// <reference path="userPrefs/compUserProfile.ts" />
-/// <reference path="nav/nav.ts" />
+/// <reference path="nav/compHeader.ts" />
+/// <reference path="nav/compNav.ts" />
 /// <reference path="nav/router.ts" />
