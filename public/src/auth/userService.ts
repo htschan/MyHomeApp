@@ -8,7 +8,9 @@ module MyHomeApp {
         loginEmailUser(email: string, password: string): ng.IPromise<User>;
         loginFacebookUser(): ng.IPromise<User>;
         getUser(): ng.IPromise<User>;
+        getPrefs(): ng.IPromise<Preference>;
         updateUser(user: User): ng.IPromise<User>;
+        updatePrefs(pref: Preference): ng.IPromise<string>;
     }
 
     export class UserService implements IUserService {
@@ -34,11 +36,10 @@ module MyHomeApp {
         }
 
         loginEmailUser(email: string, password: string): ng.IPromise<User> {
-            var self = this;
             let deferred = this.$q.defer();
             let auth = this.authService(this.refService.getRootRef());
             auth.$authWithPassword({ 'email': email, 'password': password }).then((auth: FirebaseAuthData) => {
-                self.loginUser(auth, <User>{ 'id': auth.password.email, 'provider': auth.provider, 'email': auth.password.email, 'imageUrl': auth.password.profileImageURL }).then((user: User) => {
+                this.loginUser(auth, <User>{ 'id': auth.password.email, 'provider': auth.provider, 'email': auth.password.email, 'imageUrl': auth.password.profileImageURL }).then((user: User) => {
                     this.user = user;
                     return deferred.resolve(user);
                 }).catch((err) => {
@@ -51,11 +52,10 @@ module MyHomeApp {
         }
 
         loginFacebookUser(): ng.IPromise<User> {
-            var self = this;
             let deferred = this.$q.defer();
             let auth = this.authService(this.refService.getRootRef());
             auth.$authWithOAuthPopup("facebook").then((auth: FirebaseAuthData) => {
-                self.loginUser(auth, <User>{ 'id': auth.facebook.id, 'provider': auth.provider, 'imageUrl': auth.facebook.profileImageURL }).then((user: User) => {
+                this.loginUser(auth, <User>{ 'id': auth.facebook.id, 'provider': auth.provider, 'imageUrl': auth.facebook.profileImageURL }).then((user: User) => {
                     this.user = user;
                     return deferred.resolve(user);
                 }).catch((err) => {
@@ -68,7 +68,6 @@ module MyHomeApp {
         }
 
         getUser(): ng.IPromise<User> {
-            let self = this;
             this.user = <User>{};
             let deferred = this.$q.defer();
             let ref = this.refService.getProfilesRef();
@@ -99,6 +98,23 @@ module MyHomeApp {
             return deferred.promise;
         }
 
+        getPrefs(): ng.IPromise<Preference> {
+            let pref = <Preference>{};
+            let deferred = this.$q.defer();
+            let ref = this.refService.getPreferenceRef();
+            let clientAuthData = this.getFirebaseUser();
+            ref.child(clientAuthData.uid).once("value", (dataSnapshot: FirebaseDataSnapshot) => {
+                let val: Preference = dataSnapshot.val();
+                if (val != null) {
+                    pref.name = val.name;
+                    pref.theme = val.theme;
+                    return deferred.resolve(val);
+                }
+                return deferred.reject("preference not found");
+            });
+            return deferred.promise;
+        }
+
         getFirebaseUser(): FirebaseAuthData {
             let deferred = this.$q.defer();
             let auth = this.authService(this.refService.getRootRef());
@@ -107,11 +123,15 @@ module MyHomeApp {
         }
 
         loginUser(auth: FirebaseAuthData, user: User): ng.IPromise<User> {
-            let self = this;
             let deferred = this.$q.defer();
             let ref = this.refService.getProfilesRef();
             ref.child(auth.uid).once("value", (snap: FirebaseDataSnapshot) => {
-                if (snap.val() == null) {
+                if (snap.exists()) {
+                    // use existing user
+                    user = snap.val();
+                    return deferred.resolve(user);
+                }
+                else {
                     // add user profile
                     let newKey = ref.push().key;
                     ref.child(auth.uid).set(user, (error: any) => {
@@ -122,28 +142,21 @@ module MyHomeApp {
                             return deferred.reject(error);
                     })
                 }
-                else {
-                    // use existing user
-                    user = snap.val();
-                    return deferred.resolve(user);
-                }
             })
             return deferred.promise;
         }
 
         updateUser(user: User): ng.IPromise<User> {
-            let self = this;
             let deferred = this.$q.defer();
             let ref = this.refService.getProfilesRef();
             let clientAuthData = this.getFirebaseUser();
-            ref.child(clientAuthData.uid).once("value", (dataSnapshot: FirebaseDataSnapshot) => {
-                let val = dataSnapshot.val();
-                if (val != null) {
+            ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
+                if (snap.exists()) {
                     var updates = {};
                     updates['name'] = user.name;
                     updates['firstName'] = user.firstName;
                     updates['email'] = user.email;
-                    dataSnapshot.ref().update(updates, (error) => {
+                    snap.ref().update(updates, (error) => {
                         if (error != null) {
                             return deferred.reject(error || error.message);
                         } else {
@@ -151,6 +164,38 @@ module MyHomeApp {
                         }
                     })
                 }
+            });
+            return deferred.promise;
+        }
+
+        updatePrefs(pref: Preference): ng.IPromise<string> {
+            let deferred = this.$q.defer();
+            let ref = this.refService.getPreferenceRef();
+            let clientAuthData = this.getFirebaseUser();
+            ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
+                if (!snap.exists()) {
+                    // add user prefs
+                    ref.child(clientAuthData.uid).set(name, (error: any) => {
+                        if (error == null)
+                            return deferred.resolve(name);
+                        else
+                            return deferred.reject(error);
+                    })
+                }
+                ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
+                    if (snap.exists()) {
+                        var updates = {};
+                        updates['name'] = pref.name;
+                        updates['theme'] = pref.theme;
+                        snap.ref().update(updates, (error) => {
+                            if (error != null) {
+                                return deferred.reject(error || error.message);
+                            } else {
+                                return deferred.resolve(name);
+                            }
+                        })
+                    }
+                });
             });
             return deferred.promise;
         }

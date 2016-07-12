@@ -40,6 +40,11 @@ module MyHomeApp {
               </md-dialog-actions>
           </form>
       </md-content>
+
+      <br><br>
+      <md-toolbar class='md-warn' ng-show="!!ct.errorMessage">
+         <div>{{ct.errorMessage}}</div>
+      </md-toolbar>
     </div>
     `,
         bindings: {

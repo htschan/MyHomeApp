@@ -32,10 +32,10 @@ class NavComponent {
 
     toggleSideNav() {
         this.$mdSidenav('left').toggle();
-        console.log("toggle SideNav")
     }
 
     go(newLocation): void {
         this.stateService.go(newLocation);
+        this.$mdSidenav('left').toggle();
     }
 }

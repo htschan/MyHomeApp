@@ -21,6 +21,5 @@ class HeaderComponent {
 
     toggleSideNav() {
         this.$mdSidenav('left').toggle();
-        console.log("toggle SideNav")
     }
 }

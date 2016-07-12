@@ -33,4 +33,10 @@ module MyHomeApp {
             public imageUrl?: string
         ) { }
     }
+
+    export class Preference {
+        constructor(public name: string,
+            public theme: string) {
+        }
+    }
 }

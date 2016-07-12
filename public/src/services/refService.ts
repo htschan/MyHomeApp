@@ -32,7 +32,8 @@ module MyHomeApp {
         }
 
         getPreferenceRef(): Firebase {
-            return this.rootRef.child('Preferences').child(this.getAuth().$getAuth().uid);
+            // return this.rootRef.child('Preferences').child(this.getAuth().$getAuth().uid);
+            return this.rootRef.child('Preferences');
         }
         getShoppingListRef(): Firebase {
             return this.rootRef.child('Shoppinglist');

@@ -10,12 +10,12 @@ module MyHomeApp {
               <md-dialog-content>
                   <md-input-container class="md-block" flex-gt-sm>
                       <label for="inpname">Name</label>
-                      <input type="text" ng-model="ct.userPreferences.name" name="inpname">
+                      <input type="text" ng-model="ct.preference.name" name="inpname">
                   </md-input-container>
               </md-dialog-content>
               <md-input-container class="md-block" flex-gt-sm>
                   <label>Theme</label>
-                  <md-select ng-model="ct.userPreferences.theme">
+                  <md-select ng-model="ct.preference.theme">
                       <md-option ng-repeat="th in ct.themes" value="{{th}}">
                           {{th}}
                       </md-option>
@@ -27,6 +27,11 @@ module MyHomeApp {
               </md-dialog-actions>
           </form>
       </md-content>
+
+      <br><br>
+      <md-toolbar class='md-warn' ng-show="!!ct.errorMessage">
+          <div>{{ct.errorMessage}}</div>
+      </md-toolbar>
     </div>
     `,
     bindings: {
@@ -34,18 +39,28 @@ module MyHomeApp {
     }
   })
   class EditUserPrefs {
-    static $inject: Array<string> = ['$firebaseObject', 'refService', '$state'];
+    static $inject: Array<string> = ['userService', '$state'];
 
     currentAuth: AngularFireAuth;
     themes: string[] = ["light", "dark"];
+    preference: Preference;
+    errorMessage: string;
 
-    constructor(private $firebaseObjectService: AngularFireObjectService,
-      private refService: IRefService,
+    constructor(
+      private userService: IUserService,
       private stateService: angular.ui.IStateService) {
     }
 
+    $onInit() {
+      this.userService.getPrefs().then((prefs) => {
+        this.preference = prefs;
+      }).catch((err) => {
+        this.errorMessage = err;
+      });
+    }
+
     save(): void {
-      // this.userPreferences.$save();
+      this.userService.updatePrefs(this.preference);
       this.stateService.go('home');
     }
 

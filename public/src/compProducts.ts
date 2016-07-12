@@ -19,6 +19,10 @@ module MyHomeApp {
                 </div>
             </md-content>
             <md-list>
+                <md-virtual-repeat-container md-top-index="ct.topIndex">
+                    <div md-virtual-repeat="product in ct.products" md-item-size="20">{{product.Name}}</div>
+                </md-virtual-repeat-container>
+                <!--
                 <md-list-item ng-repeat="product in ct.products | orderBy: 'Name'">
                     <img ng-src="{{product.Url}}" />
                     <div class="md-list-item-text" layout="column">
@@ -28,6 +32,7 @@ module MyHomeApp {
                         <md-button ng-click='ct.addProductToShoppinglist(product)'>+</md-button>
                     </div>
                 </md-list-item>
+                -->
             </md-list>
         </div>
         `,
@@ -60,6 +65,7 @@ module MyHomeApp {
         aProduct: Product = null;
         newProduct: Product = null;
         products: AngularFireArray;
+        topIndex: number = 1000;
 
         searchProduct(): void {
 
