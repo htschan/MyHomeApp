@@ -16,3 +16,12 @@ md-toolbar .md-toolbar-tools h1 {
     font-size: 1.250em;
     font-weight: 400;
 }
+
+md-virtual-repeat-container {
+  position: relative;
+  /*display: block;*/
+  width: 100%;
+  height: 70vh;
+  /*border: solid 1px #ccc;*/
+  padding: 10px;
+}
