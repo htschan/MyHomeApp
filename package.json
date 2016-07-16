@@ -10,5 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^2.4.2"
+  },
+  "devDependencies": {
+    "del": "^2.2.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-util": "^3.0.7",
+    "wiredep": "^4.0.0",
+    "yargs": "^4.8.0"
   }
 }
