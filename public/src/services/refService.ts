@@ -9,6 +9,7 @@ module MyHomeApp {
         getReceiptsRef(): Firebase;
         getFavoritesRef(): Firebase;
         getProductsRef(): Firebase;
+        getProductCategoriesRef(): Firebase;
         getTodosRef(): Firebase;
         getProfilesRef(): Firebase;
         getAuth(): AngularFireAuth;
@@ -46,6 +47,9 @@ module MyHomeApp {
         }
         getProductsRef(): Firebase {
             return this.rootRef.child('Products/Coop');
+        }
+        getProductCategoriesRef(): Firebase {
+            return this.rootRef.child('ProductCategories');
         }
         getTodosRef(): Firebase {
             return this.rootRef.child('Todos');

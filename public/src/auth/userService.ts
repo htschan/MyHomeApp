@@ -172,16 +172,7 @@ module MyHomeApp {
             let deferred = this.$q.defer();
             let ref = this.refService.getPreferenceRef();
             let clientAuthData = this.getFirebaseUser();
-            ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
-                if (!snap.exists()) {
-                    // add user prefs
-                    ref.child(clientAuthData.uid).set(name, (error: any) => {
-                        if (error == null)
-                            return deferred.resolve(name);
-                        else
-                            return deferred.reject(error);
-                    })
-                }
+            this.getPref(pref).then((prefNew: Preference) => {
                 ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
                     if (snap.exists()) {
                         var updates = {};
@@ -196,6 +187,27 @@ module MyHomeApp {
                         })
                     }
                 });
+            });
+            return deferred.promise;
+        }
+
+        getPref(pref: Preference): ng.IPromise<Preference> {
+            let deferred = this.$q.defer();
+            let ref = this.refService.getPreferenceRef();
+            let clientAuthData = this.getFirebaseUser();
+            ref.child(clientAuthData.uid).once("value", (snap: FirebaseDataSnapshot) => {
+                if (snap.exists()) {
+                    deferred.resolve(snap.val());
+                }
+                else {
+                    // add user prefs
+                    ref.child(clientAuthData.uid).set(name, (error: any) => {
+                        if (error == null)
+                            return deferred.resolve(snap.val());
+                        else
+                            return deferred.reject(error);
+                    })
+                }
             });
             return deferred.promise;
         }

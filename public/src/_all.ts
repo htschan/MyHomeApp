@@ -12,6 +12,7 @@
 /// <reference path="services/refService.ts" />
 /// <reference path="productComp.ts" />
 /// <reference path="compFavorites.ts" />
+/// <reference path="compProductCategories.ts" />
 /// <reference path="compHome.ts" />
 /// <reference path="compProducts.ts" />
 /// <reference path="compShoppingList.ts" />

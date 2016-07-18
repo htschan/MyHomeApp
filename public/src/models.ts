@@ -2,12 +2,18 @@
 
 module MyHomeApp {
     export class Product {
-
         constructor(
-            public name: string,
-            public quantity: string,
-            public imageUrl: string,
-            public price: number) {
+            public Name: string,
+            public Category: string,
+            public Quantity: string,
+            public Url: string,
+            public Price: number) {
+        }
+    }
+
+    export class ProductCategory {
+        constructor(
+            public Name: string) {
         }
     }
 

@@ -10,10 +10,13 @@
         </md-toolbar>
         <md-content layout="column">
             <md-button layout-align="left" ng-click="ct.go('home')" md-ink-ripple="#bbb">Home</md-button>
-            <md-button layout-align="left" ng-click="ct.go('shoppinglist')"md-ink-ripple="#bbb">Einkaufsliste</md-button>
-            <md-button layout-align="left" ng-click="ct.go('receipts')"md-ink-ripple="#bbb">Rezepte</md-button>
+            <md-button layout-align="left" ng-click="ct.go('shoppinglist')">Einkaufsliste&nbsp;
+                <ng-md-icon icon="add_shopping_cart" size="24"></ng-md-icon>
+            </md-button>
             <md-button layout-align="left" ng-click="ct.go('favorites')"md-ink-ripple="#bbb">Favoriten</md-button>
+            <md-button layout-align="left" ng-click="ct.go('receipts')"md-ink-ripple="#bbb">Rezepte</md-button>
             <md-button layout-align="left" ng-click="ct.go('products')"md-ink-ripple="#bbb">Alle Produkte</md-button>
+            <md-button layout-align="left" ng-click="ct.go('productCategories')"md-ink-ripple="#bbb">Produktkategorien</md-button>
             <md-button layout-align="left" ng-click="ct.go('todos')"md-ink-ripple="#bbb">To Do's</md-button>
             <md-button layout-align="left" ng-click="ct.go('userprefs')">Preferences</md-button>
             <md-button layout-align="left" ng-click="ct.go('userprofile')">Profile</md-button>

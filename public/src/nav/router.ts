@@ -32,6 +32,13 @@ module MyHomeApp {
                               }
                         }
                   })
+                  .state('productCategories', {
+                        url: "/productCategories", template: "<comp-product-categories auth='$resolve.auth'></comp-product-categories>", resolve: {
+                              auth: function (refService: IRefService) {
+                                    return refService.getAuth().$requireAuth();
+                              }
+                        }
+                  })
                   .state('favorites', {
                         url: "/favorites", template: "<comp-favorites auth='$resolve.auth'></comp-favorites>", resolve: {
                               auth: function (refService: IRefService) {

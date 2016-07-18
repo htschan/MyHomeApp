@@ -1,0 +1,47 @@
+<md-dialog aria-label="Artikel hinzufügen oder ändern" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Artikel hinzufügen oder ändern</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <ng-md-icon icon="close" size="24"></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div>
+          <md-input-container>
+            <label>Name</label>
+            <input ng-model="product.Name">
+          </md-input-container>
+          <md-input-container>
+            <label>Preis</label>
+            <input ng-model="product.Price">
+          </md-input-container>
+          <md-input-container>
+            <label>Menge</label>
+            <input ng-model="product.Quantity">
+          </md-input-container>
+          <md-input-container>
+            <label>Url</label>
+            <input ng-model="product.Url">
+          </md-input-container>
+          <md-input-container>
+            <label>Category</label>
+            <input ng-model="product.Category">
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="save()">
+        Save
+      </md-button>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

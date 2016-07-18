@@ -20,16 +20,18 @@ module MyHomeApp {
 
         private products: Product[] = [
             {
-                name: 'Ruchbrot',
-                quantity: '500 g',
-                imageUrl: 'http://img.coopathome.ch/produkte/mittel/30/3041726mun.jpg',
-                price: 1.15
+                Name: 'Ruchbrot',
+                Category: "Brot & Backwaren",
+                Quantity: '500 g',
+                Url: 'http://img.coopathome.ch/produkte/mittel/30/3041726mun.jpg',
+                Price: 1.15
             },
             {
-                name: 'Bifidus Jogurt Nature',
-                quantity: '4 * 125 g',
-                imageUrl: 'http://img.coopathome.ch/produkte/mittel/56/5678559mun.jpg',
-                price: 1.70
+                Name: 'Bifidus Jogurt Nature',
+                Category: 'Milchprodukte',
+                Quantity: '4 * 125 g',
+                Url: 'http://img.coopathome.ch/produkte/mittel/56/5678559mun.jpg',
+                Price: 1.70
             }
         ];
     }
